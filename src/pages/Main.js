@@ -133,9 +133,7 @@ export default class Main extends Component {
 					}}
 					timeout={2000}
 					dismissesOnAction={false}/>
-				<LoginDialog
-					show={this.state.showLogin}
-					onClose={() => this.setState({showLogin: false})}/>
+				<LoginDialog show={this.state.showLogin}/>
 				<InstallationTutorialDialog
 					show={this.state.showTutorial}
 					onClose={() => this.setState({showTutorial: false})}/>

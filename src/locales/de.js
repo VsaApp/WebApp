@@ -5,6 +5,7 @@ export default {
 	app_short_name: 'VsaPWA',
 	dialog_login_title: 'Anmelden',
 	dialog_login_submit: 'Anmelden',
+	dialog_login_teacher: 'Lehrer*In',
 	dialog_login_username: 'Nutzername',
 	dialog_login_password: 'Passwort',
 	dialog_login_grade: 'Klasse',
