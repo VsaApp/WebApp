@@ -11,7 +11,7 @@ export default class UnitPlanRow extends Component {
 					gridGap: 2.5,
 					paddingBottom: 5,
 					paddingTop: 5,
-					borderBottom: (this.props.j !== this.props.day.lessons.length - 1 ? '1px solid gray' : 'none')
+					borderBottom: (!this.props.last ? '1px solid gray' : 'none')
 				}}>
 				<div
 					style={{display: 'grid', gridTemplateColumns: '15% 55% 30%'}}>
@@ -25,6 +25,7 @@ export default class UnitPlanRow extends Component {
 									chooserDay: this.props.i,
 									chooserLesson: this.props.j,
 									chooserOpen: true,
+									chooserData: this.props.subjects[0],
 									chooserSelect: this.props.subjects[0].lesson + ' ' + this.props.subjects[0].teacher + ' ' + this.props.subjects[0].room
 								});
 							}

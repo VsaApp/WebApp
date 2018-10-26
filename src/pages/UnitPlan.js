@@ -28,7 +28,12 @@ export default class UnitPlan extends Component {
 			],
 			chooserDay: 0,
 			chooserLesson: 0,
-			chooserSelect: 0
+			chooserSelect: 0,
+			chooserData: {
+				teacher: '',
+				lesson: '',
+				room: ''
+			}
 		};
 		this.overwriteUnitPlan = this.overwriteUnitPlan.bind(this);
 	}
@@ -52,7 +57,7 @@ export default class UnitPlan extends Component {
 		const grade = cookie.load('grade');
 		unitplan = unitplan.map(day => {
 			day.lessons = day.lessons.filter((subjects, i) => {
-				return subjects.length > 0 || i == 5;
+				return subjects.length > 0 || i === 5;
 			}).map((subjects, j) => {
 				subjects = subjects.filter(subject => subject !== undefined).map(subject => {
 					subject.lesson = SubjectsAPI.getSubject(subject.lesson);
@@ -69,7 +74,7 @@ export default class UnitPlan extends Component {
 				}
 				return subjects;
 			});
-			if (day.lessons.length <= 6) {
+			if (day.lessons.length <= 5) {
 				day.lessons.pop();
 			}
 			return day;
@@ -101,16 +106,38 @@ export default class UnitPlan extends Component {
 									})
 								}}/>
 							{day.lessons.map((subjects, j) => {
+								let last = false;
 								let select = 0;
-								if (cookie.load('choice:' + cookie.load('grade') + ':' + i + ':' + j) !== undefined && cookie.load('choice:' + cookie.load('grade') + ':' + i + ':' + j) !== '') {
-									select = parseInt(cookie.load('choice:' + cookie.load('grade') + ':' + i + ':' + j));
+								if (subjects.length > 0) {
+									let singleChoice = cookie.load('choice:' + cookie.load('grade') + ':' + i + ':' + j);
+									if (singleChoice !== undefined && singleChoice !== '') {
+										select = parseInt(singleChoice);
+									}
+									if ('block' in subjects[0]) {
+										let blockChoice = cookie.load('choice:' + subjects[0].block);
+										if (blockChoice !== undefined && blockChoice !== '') {
+											select = parseInt(blockChoice);
+										}
+									}
 								}
 								if (j === 5) {
-									subjects[0] = {
-										lesson: i18n.t('unitplan_lunch_break'),
-										teacher: '',
-										room: ''
+									if (day.lessons.length > 6) {
+										subjects[0] = {
+											lesson: i18n.t('unitplan_lunch_break'),
+											teacher: '',
+											room: ''
+										}
+									} else {
+										return '';
 									}
+								}
+								if (day.lessons.length === 6) {
+									if (j === day.lessons.length - 2) {
+										last = true;
+									}
+								}
+								if (j === day.lessons.length - 1) {
+									last = true;
 								}
 								return (<UnitPlanRow
 									key={j}
@@ -119,6 +146,7 @@ export default class UnitPlan extends Component {
 									select={select}
 									subjects={subjects}
 									day={day}
+									last={last}
 									processNotification={data => this.props.processNotification(data)}
 									onClick={state => this.setState(state)}/>);
 							})}
@@ -141,7 +169,12 @@ export default class UnitPlan extends Component {
 							if (this.state.chooserSelect === -1) {
 								return;
 							}
-							cookie.save('choice:' + cookie.load('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {expires: new Date(Infinity)});
+							console.log(this.state.chooserData, this.state.chooserSelect);
+							if (!('block' in this.state.chooserData)) {
+								cookie.save('choice:' + cookie.load('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {expires: new Date(Infinity)});
+							} else {
+								cookie.save('choice:' + this.state.chooserData.block, this.state.chooserSelect, {expires: new Date(Infinity)});
+							}
 							this.setState({
 								chooserList: [
 									{

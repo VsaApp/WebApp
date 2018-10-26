@@ -34,10 +34,17 @@ const subjects = {
 	PJ: 'Projektkurs'
 };
 
+function getKeyByValue(object, value) {
+	return Object.keys(object).find(key => object[key] === value);
+}
+
 export const SubjectsAPI = {
 	subjects,
 	getSubject: name => {
-		name = name.replace(/[0-9]/g, '').toUpperCase();
-		return subjects[name] || name;
+		let upperName = name.replace(/[0-9]/g, '').toUpperCase();
+		if (getKeyByValue(subjects, name) !== undefined) {
+			upperName = getKeyByValue(subjects, name);
+		}
+		return subjects[upperName] || name;
 	}
 };
