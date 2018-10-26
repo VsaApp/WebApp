@@ -1,0 +1,25 @@
+{
+  "name": "vsapwa",
+  "version": "0.0.1",
+  "description": "A PWA for Vsa",
+  "scripts": {
+    "start": "pawjs --env=development start",
+    "build": "pawjs --env=production build"
+  },
+  "author": "Jan-Luca D.",
+  "license": "MIT",
+  "devDependencies": {
+    "@pawjs/pawjs": "^2.1.10"
+  },
+  "dependencies": {
+    "@firebase/app": "^0.3.4",
+    "@firebase/messaging": "^0.3.6",
+    "@mdi/js": "^3.0.39",
+    "@mdi/react": "^1.1.0",
+    "buffer": "^5.2.1",
+    "i18n-js": "^3.0.11",
+    "react-cookies": "^0.1.0",
+    "rmwc": "^3.0.5",
+    "whatwg-fetch": "^2.0.4"
+  }
+}
