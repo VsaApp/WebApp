@@ -120,7 +120,7 @@ export default class UnitPlan extends Component {
 									subjects={subjects}
 									day={day}
 									processNotification={data => this.props.processNotification(data)}
-									updateState={state => this.setState(state)}/>);
+									onClick={state => this.setState(state)}/>);
 							})}
 						</div>
 					);

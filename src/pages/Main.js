@@ -14,11 +14,11 @@ import ReplacementPlan from './ReplacementPlan';
 import LoginDialog from '../components/LoginDialog';
 import AppDrawer from '../components/AppDrawer';
 import './Theme.css';
+import InstallationTutorialDialog from "../components/InstallationTutorialDialog";
 
 export default class Main extends Component {
 
 	constructor(props) {
-		console.log(process.env);
 		super(props);
 		this.state = {
 			showLogin: false,
@@ -31,7 +31,8 @@ export default class Main extends Component {
 			toolbarHeight: 0,
 			snackbarOpen: false,
 			snackbarText: '',
-			snackbarData: {}
+			snackbarData: {},
+			showTutorial: false
 		};
 	}
 
@@ -100,7 +101,11 @@ export default class Main extends Component {
 				this.processNotification(event.data);
 			}
 		});
-		this.setState({toolbarHeight: ReactDOM.findDOMNode(this.refs.toolbar).clientHeight});
+		this.setState({toolbarHeight: ReactDOM.findDOMNode(this.refs.toolbar).clientHeight, loginInvalid: false});
+		if (cookie.load('showTutorial') === undefined || cookie.load('showTutorial') === '') {
+			this.setState({showTutorial: true});
+			cookie.save('showTutorial', false, {expires: new Date(Infinity)})
+		}
 		if (!this.state.showLogin) {
 			LoginAPI.login(this.state.username, this.state.password).then(correct => {
 				console.log(correct);
@@ -110,7 +115,6 @@ export default class Main extends Component {
 			}).catch(() => {
 			});
 		}
-		this.setState({loginInvalid: false});
 	}
 
 	render() {
@@ -132,12 +136,15 @@ export default class Main extends Component {
 				<LoginDialog
 					show={this.state.showLogin}
 					onClose={() => this.setState({showLogin: false})}/>
+				<InstallationTutorialDialog
+					show={this.state.showTutorial}
+					onClose={() => this.setState({showTutorial: false})}/>
 				<AppDrawer
 					ref='drawer'
 					show={this.state.drawerOpen}
 					processNotification={data => this.processNotification(data)}
 					onClose={() => this.setState({drawerOpen: false})}
-					updateState={state => this.setState(state)}/>
+					onClick={state => this.setState(state)}/>
 				<Toolbar fixed ref='toolbar'>
 					<ToolbarRow>
 						<ToolbarSection alignStart>

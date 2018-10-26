@@ -44,7 +44,7 @@ export default class AppDrawer extends Component {
 								this.setState({tab: 0});
 								this.selectTab();
 								setTimeout(() => {
-									this.props.updateState({
+									this.props.onClick({
 										page: <UnitPlan processNotification={data => this.props.processNotification(data)}/>,
 										drawerOpen: false,
 										title: i18n.t('drawer_unitplan')
@@ -57,7 +57,7 @@ export default class AppDrawer extends Component {
 							ref='1'
 							onClick={() => {
 								this.setState({tab: 1});
-								this.props.updateState({
+								this.props.onClick({
 									page: <ReplacementPlan processNotification={data => this.props.processNotification(data)}/>,
 									drawerOpen: false,
 									title: i18n.t('drawer_replacementplan')
@@ -72,7 +72,7 @@ export default class AppDrawer extends Component {
 							ref='2'
 							onClick={() => {
 								this.setState({tab: 2});
-								this.props.updateState({
+								this.props.onClick({
 									page: <Teachers/>,
 									drawerOpen: false,
 									title: i18n.t('drawer_teachers')
@@ -86,7 +86,7 @@ export default class AppDrawer extends Component {
 							ref='3'
 							onClick={() => {
 								this.setState({tab: 3});
-								this.props.updateState({
+								this.props.onClick({
 									page: <Clubs/>,
 									drawerOpen: false,
 									title: i18n.t('drawer_clubs')
@@ -99,7 +99,7 @@ export default class AppDrawer extends Component {
 							ref='4'
 							onClick={() => {
 								this.setState({tab: 4});
-								this.props.updateState({
+								this.props.onClick({
 									page: <Settings/>,
 									drawerOpen: false,
 									title: i18n.t('drawer_settings')

@@ -20,7 +20,7 @@ export default class UnitPlanRow extends Component {
 						style={{margin: 0, color: (this.props.subjects.length > 1 ? 'var(--mdc-theme-primary)' : 'black')}}
 						onClick={() => {
 							if (this.props.subjects.length > 1) {
-								this.props.updateState({
+								this.props.onClick({
 									chooserList: this.props.subjects,
 									chooserDay: this.props.i,
 									chooserLesson: this.props.j,
