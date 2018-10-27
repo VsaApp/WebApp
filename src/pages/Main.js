@@ -70,6 +70,13 @@ export default class Main extends Component {
 	}
 
 	componentDidMount() {
+		window.addEventListener('load', function () {
+			window.history.pushState({}, '')
+		});
+
+		window.addEventListener('popstate', function () {
+			window.history.pushState({}, '')
+		});
 		let hash = decodeURIComponent(location.href.split('#/')[1]);
 		try {
 			this.processNotification(JSON.parse(hash));
