@@ -1,7 +1,7 @@
 body {
     --mdc-theme-primary: #45921e;
     --mdc-theme-secondary: #67a744;
-    font-family: Roboto, monospace;
+    font-family: Roboto, sans-serif;
     letter-spacing: 0.0125em;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
