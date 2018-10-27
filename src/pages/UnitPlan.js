@@ -189,9 +189,15 @@ export default class UnitPlan extends Component {
 							}
 							console.log(this.state.chooserData, this.state.chooserSelect);
 							if (!('block' in this.state.chooserData)) {
-								cookie.save('choice:' + cookie.load('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {expires: new Date(Infinity)});
+								cookie.save('choice:' + cookie.load('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {
+									expires: new Date(Infinity),
+									maxAge: Infinity
+								});
 							} else {
-								cookie.save('choice:' + this.state.chooserData.block, this.state.chooserSelect, {expires: new Date(Infinity)});
+								cookie.save('choice:' + this.state.chooserData.block, this.state.chooserSelect, {
+									expires: new Date(Infinity),
+									maxAge: Infinity
+								});
 							}
 							this.setState({
 								chooserList: [

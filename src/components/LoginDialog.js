@@ -63,9 +63,15 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginGrade).then(() => {
-											cookie.save('username', this.state.loginUsername, {expires: new Date(Infinity)});
-											cookie.save('password', this.state.loginPassword, {expires: new Date(Infinity)});
-											cookie.save('grade', this.state.loginGrade, {expires: new Date(Infinity)});
+											cookie.save('username', this.state.loginUsername, {
+												expires: new Date(Infinity),
+												maxAge: Infinity
+											});
+											cookie.save('password', this.state.loginPassword, {
+												expires: new Date(Infinity),
+												maxAge: Infinity
+											});
+											cookie.save('grade', this.state.loginGrade, {expires: new Date(Infinity), maxAge: Infinity});
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);
@@ -85,10 +91,16 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginUsername).then(() => {
-											cookie.save('username', this.state.loginUsername, {expires: new Date(Infinity)});
-											cookie.save('password', this.state.loginPassword, {expires: new Date(Infinity)});
-											cookie.save('grade', this.state.loginUsername, {expires: new Date(Infinity)});
-											cookie.save('teacher', true, {expires: new Date(Infinity)});
+											cookie.save('username', this.state.loginUsername, {
+												expires: new Date(Infinity),
+												maxAge: Infinity
+											});
+											cookie.save('password', this.state.loginPassword, {
+												expires: new Date(Infinity),
+												maxAge: Infinity
+											});
+											cookie.save('grade', this.state.loginUsername, {expires: new Date(Infinity), maxAge: Infinity});
+											cookie.save('teacher', true, {expires: new Date(Infinity), maxAge: Infinity});
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);

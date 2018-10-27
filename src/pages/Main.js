@@ -104,7 +104,7 @@ export default class Main extends Component {
 		this.setState({toolbarHeight: ReactDOM.findDOMNode(this.refs.toolbar).clientHeight, loginInvalid: false});
 		if (cookie.load('showTutorial') === undefined || cookie.load('showTutorial') === '') {
 			this.setState({showTutorial: true});
-			cookie.save('showTutorial', false, {expires: new Date(Infinity)})
+			cookie.save('showTutorial', false, {expires: new Date(Infinity), maxAge: Infinity})
 		}
 		if (!this.state.showLogin) {
 			LoginAPI.login(this.state.username, this.state.password).then(correct => {

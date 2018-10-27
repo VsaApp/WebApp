@@ -15,7 +15,7 @@ export default class ReplacementPlanRow extends Component {
 					fontWeight: (this.props.change.changed.info.includes('Klausur') ? 'bold' : 'none')
 				}}>
 				<div
-					style={{display: 'grid', gridTemplateColumns: '15% 28.3% 28.3% 28.3%'}}>
+					style={{display: 'grid', gridTemplateColumns: '15% 35.8% 35.8% 15%'}}>
 					<p style={{margin: 0}}>{this.props.change.unit}</p>
 					<p style={{margin: 0}}>{this.props.change.lesson}</p>
 					<p
@@ -28,7 +28,7 @@ export default class ReplacementPlanRow extends Component {
 					<p style={{margin: 0, textAlign: 'right'}}>{this.props.change.room}</p>
 				</div>
 				<div
-					style={{display: 'grid', gridTemplateColumns: '15% 28.3% 28.3% 28.3%'}}>
+					style={{display: 'grid', gridTemplateColumns: '15% 35.8% 35.8% 15%'}}>
 					<div/>
 					<p style={{margin: 0, fontWeight: 'bold'}}>{this.props.change.changed.info}</p>
 					<p

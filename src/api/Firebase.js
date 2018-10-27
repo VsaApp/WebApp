@@ -22,7 +22,7 @@ const getToken = () => {
 				return messaging.getToken();
 			}).then(token => {
 				console.log(token);
-				cookie.save('token', token, {expires: new Date(Infinity)});
+				cookie.save('token', token, {expires: new Date(Infinity), maxAge: Infinity});
 				resolve(token);
 			}).catch(reject);
 
@@ -32,7 +32,7 @@ const getToken = () => {
 			}).then(token => {
 				console.log(token);
 				if (token !== cookie.load('token')) {
-					cookie.save('token', token, {expires: new Date(Infinity)});
+					cookie.save('token', token, {expires: new Date(Infinity), maxAge: Infinity});
 					subscribe(cookie.load('grade') + 'test');
 				}
 				resolve(token);
