@@ -17,6 +17,7 @@ import i18n from '../i18n';
 import {LoginAPI} from '../api/Login';
 import {GradesAPI} from '../api/Grades';
 import {FirebaseAPI} from '../api/Firebase';
+import {TeacherAPI} from "../api/Teachers";
 
 export default class LoginDialog extends Component {
 
@@ -51,35 +52,54 @@ export default class LoginDialog extends Component {
 					open={this.state.showLogin}
 					onClose={evt => {
 						if (evt.detail.action === 'accept') {
-							if (this.state.teacherChecked) {
-								this.setState({teacherChecked: false});
-								console.warn('Not implemented yet!');
-								return;
-							}
 							this.setState({loggingIn: true, showLogin: false});
 							console.log('Trying to log in...');
-							LoginAPI.login(this.state.loginUsername, this.state.loginPassword).then(correct => {
-								console.log(correct);
-								if (correct) {
-									this.setState({loginInvalid: false});
-									if (Notification.permission !== 'granted') {
-										alert(i18n.t('notification_permission_not_granted'));
+							if (!this.state.teacherChecked) {
+								LoginAPI.login(this.state.loginUsername, this.state.loginPassword).then(correct => {
+									console.log(correct);
+									if (correct) {
+										this.setState({loginInvalid: false});
+										if (Notification.permission !== 'granted') {
+											alert(i18n.t('notification_permission_not_granted'));
+										}
+										FirebaseAPI.subscribe(this.state.loginGrade).then(() => {
+											cookie.save('username', this.state.loginUsername, {expires: new Date(Infinity)});
+											cookie.save('password', this.state.loginPassword, {expires: new Date(Infinity)});
+											cookie.save('grade', this.state.loginGrade, {expires: new Date(Infinity)});
+											window.location.reload();
+										}).catch(error => {
+											console.error(error);
+											this.setState({loggingIn: false});
+											alert(i18n.t('notification_permission_not_granted'));
+										});
+									} else {
+										this.setState({loginInvalid: true, loggingIn: false, showLogin: true});
 									}
-									FirebaseAPI.subscribe(this.state.loginGrade).then(() => {
-										cookie.save('username', this.state.loginUsername, {expires: new Date(Infinity)});
-										cookie.save('password', this.state.loginPassword, {expires: new Date(Infinity)});
-										cookie.save('grade', this.state.loginGrade, {expires: new Date(Infinity)});
-										window.location.reload();
-									}).catch(error => {
-										console.error(error);
-										this.setState({loggingIn: false});
-										alert(i18n.t('notification_permission_not_granted'));
-									});
-								} else {
-									this.setState({loginInvalid: true, loggingIn: false, showLogin: true});
-								}
-							}).catch(() => {
-							});
+								}).catch(() => {
+								});
+							} else {
+								TeacherAPI.get().then(teachers => {
+									if (teachers.filter(t => t.shortName === this.state.loginUsername).length > 0) {
+										this.setState({loginInvalid: false});
+										if (Notification.permission !== 'granted') {
+											alert(i18n.t('notification_permission_not_granted'));
+										}
+										FirebaseAPI.subscribe(this.state.loginUsername).then(() => {
+											cookie.save('username', this.state.loginUsername, {expires: new Date(Infinity)});
+											cookie.save('password', this.state.loginPassword, {expires: new Date(Infinity)});
+											cookie.save('grade', this.state.loginUsername, {expires: new Date(Infinity)});
+											cookie.save('teacher', true, {expires: new Date(Infinity)});
+											window.location.reload();
+										}).catch(error => {
+											console.error(error);
+											this.setState({loggingIn: false});
+											alert(i18n.t('notification_permission_not_granted'));
+										});
+									} else {
+										this.setState({loginInvalid: true, loggingIn: false, showLogin: true});
+									}
+								});
+							}
 						}
 					}}>
 					<DialogTitle>{i18n.t('dialog_login_title')}</DialogTitle>

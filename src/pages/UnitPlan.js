@@ -56,13 +56,18 @@ export default class UnitPlan extends Component {
 	overwriteUnitPlan(unitplan) {
 		const grade = cookie.load('grade');
 		unitplan = unitplan.map(day => {
-			day.lessons = day.lessons.filter((subjects, i) => {
-				return subjects.length > 0 || i === 5;
-			}).map((subjects, j) => {
+			day.lessons = day.lessons.map((subjects, j) => {
 				subjects = subjects.filter(subject => subject !== undefined).map(subject => {
 					subject.lesson = SubjectsAPI.getSubject(subject.lesson);
 					return subject;
 				});
+				if (subjects.length === 0) {
+					subjects.push({
+						lesson: i18n.t('unitplan_free_lesson'),
+						teacher: '',
+						room: ''
+					});
+				}
 				if (j !== 5 && (grade === 'EF' || grade === 'Q1' || grade === 'Q2')) {
 					if (subjects[subjects.length - 1].lesson !== i18n.t('unitplan_free_lesson')) {
 						subjects.push({
@@ -74,9 +79,9 @@ export default class UnitPlan extends Component {
 				}
 				return subjects;
 			});
-			if (day.lessons.length <= 5) {
-				day.lessons.pop();
-			}
+			day.lessons = day.lessons.reduceRight((result, a) =>
+					(result.length === 0 && a[0].lesson === i18n.t('unitplan_free_lesson') ? result : [a].concat(result)),
+				[]);
 			return day;
 		});
 		this.setState({unitplan});
@@ -139,16 +144,29 @@ export default class UnitPlan extends Component {
 								if (j === day.lessons.length - 1) {
 									last = true;
 								}
-								return (<UnitPlanRow
-									key={j}
-									j={j}
-									i={i}
-									select={select}
-									subjects={subjects}
-									day={day}
-									last={last}
-									processNotification={data => this.props.processNotification(data)}
-									onClick={state => this.setState(state)}/>);
+								if (subjects.length > 0) {
+									return (<UnitPlanRow
+										key={j}
+										j={j}
+										i={i}
+										select={select}
+										subjects={subjects}
+										day={day}
+										last={last}
+										processNotification={data => this.props.processNotification(data)}
+										onClick={state => this.setState(state)}/>);
+								} else {
+									return (<UnitPlanRow
+										key={j}
+										j={j}
+										i={i}
+										select={select}
+										subjects={[{lesson: 'Freistunde', room: ' ', teacher: ' '}]}
+										day={day}
+										last={last}
+										processNotification={data => this.props.processNotification(data)}
+										onClick={state => this.setState(state)}/>);
+								}
 							})}
 						</div>
 					);
