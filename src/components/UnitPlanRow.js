@@ -9,7 +9,7 @@ export default class UnitPlanRow extends Component {
 					display: 'grid',
 					gridTemplateRows: '50% 50%',
 					gridGap: 2.5,
-					paddingBottom: 5,
+					paddingBottom: (!this.props.last ? 5 : 0),
 					paddingTop: 5,
 					borderBottom: (!this.props.last ? '1px solid gray' : 'none')
 				}}

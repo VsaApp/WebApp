@@ -7,7 +7,7 @@ export default class TeacherRow extends Component {
 				style={{
 					display: 'grid',
 					gridTemplateColumns: '15% 15% 70%',
-					paddingBottom: 5,
+					paddingBottom: (!this.props.i !== this.props.changes.length - 1 ? 5 : 0),
 					paddingTop: 5,
 					borderBottom: (this.props.i !== this.props.teachersCount - 1 ? '1px solid gray' : 'none')
 				}}

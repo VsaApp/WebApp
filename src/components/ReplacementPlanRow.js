@@ -8,7 +8,7 @@ export default class ReplacementPlanRow extends Component {
 					display: 'grid',
 					gridTemplateRows: '50% 50%',
 					gridGap: 2.5,
-					paddingBottom: 5,
+					paddingBottom: (!this.props.j !== this.props.changes.length - 1 ? 5 : 0),
 					paddingTop: 5,
 					borderBottom: (this.props.j !== this.props.changes.length - 1 ? '1px solid gray' : 'none'),
 					color: (this.props.change.changed.info.includes('Klausur') ? 'red' : 'black'),
