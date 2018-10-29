@@ -9,13 +9,13 @@ export default class TabControls extends Component {
 				style={{
 					display: 'grid',
 					gridTemplateColumns: '10% 80% 10%',
-					alignItems: 'end'
+					alignItems: 'end',
+					height: 30
 				}}>
 				<div
 					style={{
 						width: '100%',
-						textAlign: 'left',
-						height: 36
+						textAlign: 'left'
 					}}
 					onClick={() => {
 						this.props.changeWeekday(-1);
@@ -25,15 +25,13 @@ export default class TabControls extends Component {
 				<p
 					style={{
 						textAlign: 'center',
-						height: 36,
 						fontSize: 25,
 						margin: 0
 					}}>{this.props.name}</p>
 				<div
 					style={{
 						width: '100%',
-						textAlign: 'right',
-						height: 36
+						textAlign: 'right'
 					}}
 					onClick={() => {
 						this.props.changeWeekday(+1);
