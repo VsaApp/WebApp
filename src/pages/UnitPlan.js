@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import cookie from 'react-cookies';
 import {Dialog, DialogActions, DialogButton, DialogContent, DialogTitle} from '@rmwc/dialog';
 import {Select} from '@rmwc/select';
 import '@material/dialog/dist/mdc.dialog.css';
@@ -7,6 +6,7 @@ import '@material/select/dist/mdc.select.css';
 import i18n from '../i18n';
 import {UnitplanAPI} from '../api/Unitplan';
 import {SubjectsAPI} from '../api/Subjects';
+import {StorageAPI} from '../api/Storage';
 import TabControls from '../components/TabControls';
 import UnitPlanRow from '../components/UnitPlanRow';
 
@@ -45,7 +45,7 @@ export default class UnitPlan extends Component {
 		}
 		day--;
 		this.setState({weekday: day});
-		if (cookie.load('grade') !== undefined && cookie.load('grade') !== '') {
+		if (StorageAPI.get('grade') !== undefined && StorageAPI.get('grade') !== '') {
 			UnitplanAPI.get().then(json => {
 				this.setState({rawunitplan: json});
 				this.overwriteUnitPlan(json);
@@ -54,7 +54,7 @@ export default class UnitPlan extends Component {
 	}
 
 	overwriteUnitPlan(unitplan) {
-		const grade = cookie.load('grade');
+		const grade = StorageAPI.get('grade');
 		unitplan = unitplan.map(day => {
 			day.lessons = day.lessons.map((subjects, j) => {
 				subjects = subjects.filter(subject => subject !== undefined).map(subject => {
@@ -114,12 +114,12 @@ export default class UnitPlan extends Component {
 								let last = false;
 								let select = 0;
 								if (subjects.length > 0) {
-									let singleChoice = cookie.load('choice:' + cookie.load('grade') + ':' + i + ':' + j);
+									let singleChoice = StorageAPI.get('choice:' + StorageAPI.get('grade') + ':' + i + ':' + j);
 									if (singleChoice !== undefined && singleChoice !== '') {
 										select = parseInt(singleChoice);
 									}
 									if ('block' in subjects[0]) {
-										let blockChoice = cookie.load('choice:' + subjects[0].block);
+										let blockChoice = StorageAPI.get('choice:' + subjects[0].block);
 										if (blockChoice !== undefined && blockChoice !== '') {
 											select = parseInt(blockChoice);
 										}
@@ -189,12 +189,12 @@ export default class UnitPlan extends Component {
 							}
 							console.log(this.state.chooserData, this.state.chooserSelect);
 							if (!('block' in this.state.chooserData)) {
-								cookie.save('choice:' + cookie.load('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {
+								StorageAPI.set('choice:' + StorageAPI.get('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {
 									expires: new Date(Infinity),
 									maxAge: Infinity
 								});
 							} else {
-								cookie.save('choice:' + this.state.chooserData.block, this.state.chooserSelect, {
+								StorageAPI.set('choice:' + this.state.chooserData.block, this.state.chooserSelect, {
 									expires: new Date(Infinity),
 									maxAge: Infinity
 								});

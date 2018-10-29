@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import cookie from 'react-cookies';
 import i18n from '../i18n';
 import TabControls from '../components/TabControls';
 import {ReplacementplanAPI} from '../api/Replacementplan';
 import {SubjectsAPI} from '../api/Subjects';
+import {StorageAPI} from '../api/Storage';
 import ReplacementPlanRow from '../components/ReplacementPlanRow';
 
 export default class ReplacementPlan extends Component {
@@ -38,7 +38,7 @@ export default class ReplacementPlan extends Component {
 
 	componentDidMount() {
 		let got = 0;
-		if (cookie.load('grade') !== undefined && cookie.load('grade') !== '') {
+		if (StorageAPI.get('grade') !== undefined && StorageAPI.get('grade') !== '') {
 			ReplacementplanAPI.get(true).then(json => {
 				this.setState({
 					replacementplanToday: this.overwriteReplacementPlan(json)

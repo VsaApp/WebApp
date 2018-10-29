@@ -12,12 +12,12 @@ import '@material/floating-label/dist/mdc.floating-label.css';
 import '@material/checkbox/dist/mdc.checkbox.css';
 import '@material/form-field/dist/mdc.form-field.css';
 import '@rmwc/circular-progress/circular-progress.css';
-import cookie from 'react-cookies';
 import i18n from '../i18n';
 import {LoginAPI} from '../api/Login';
 import {GradesAPI} from '../api/Grades';
 import {FirebaseAPI} from '../api/Firebase';
-import {TeacherAPI} from "../api/Teachers";
+import {TeacherAPI} from '../api/Teachers';
+import {StorageAPI} from '../api/Storage';
 
 export default class LoginDialog extends Component {
 
@@ -63,15 +63,15 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginGrade).then(() => {
-											cookie.save('username', this.state.loginUsername, {
+											StorageAPI.set('username', this.state.loginUsername, {
 												expires: new Date(Infinity),
 												maxAge: Infinity
 											});
-											cookie.save('password', this.state.loginPassword, {
+											StorageAPI.set('password', this.state.loginPassword, {
 												expires: new Date(Infinity),
 												maxAge: Infinity
 											});
-											cookie.save('grade', this.state.loginGrade, {expires: new Date(Infinity), maxAge: Infinity});
+											StorageAPI.set('grade', this.state.loginGrade, {expires: new Date(Infinity), maxAge: Infinity});
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);
@@ -91,16 +91,19 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginUsername).then(() => {
-											cookie.save('username', this.state.loginUsername, {
+											StorageAPI.set('username', this.state.loginUsername, {
 												expires: new Date(Infinity),
 												maxAge: Infinity
 											});
-											cookie.save('password', this.state.loginPassword, {
+											StorageAPI.set('password', this.state.loginPassword, {
 												expires: new Date(Infinity),
 												maxAge: Infinity
 											});
-											cookie.save('grade', this.state.loginUsername, {expires: new Date(Infinity), maxAge: Infinity});
-											cookie.save('teacher', true, {expires: new Date(Infinity), maxAge: Infinity});
+											StorageAPI.set('grade', this.state.loginUsername, {
+												expires: new Date(Infinity),
+												maxAge: Infinity
+											});
+											StorageAPI.set('teacher', true, {expires: new Date(Infinity), maxAge: Infinity});
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);

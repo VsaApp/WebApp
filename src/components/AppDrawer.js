@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import cookie from 'react-cookies';
 import {Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle} from '@rmwc/drawer';
 import {List, ListItem} from '@rmwc/list';
 import '@material/drawer/dist/mdc.drawer.css';
 import i18n from '../i18n';
+import {StorageAPI} from '../api/Storage';
 import UnitPlan from '../pages/UnitPlan';
 import ReplacementPlan from '../pages/ReplacementPlan';
 import Settings from '../pages/Settings';
@@ -15,7 +15,7 @@ export default class AppDrawer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			grade: cookie.load('grade'),
+			grade: StorageAPI.get('grade'),
 			tab: 0
 		};
 		this.selectTab = this.selectTab.bind(this);

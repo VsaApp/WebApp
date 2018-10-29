@@ -6,15 +6,15 @@ import {Snackbar} from '@rmwc/snackbar';
 import {Toolbar, ToolbarRow, ToolbarSection, ToolbarTitle} from '@rmwc/toolbar';
 import '@material/snackbar/dist/mdc.snackbar.css';
 import '@material/toolbar/dist/mdc.toolbar.css';
-import cookie from 'react-cookies';
 import i18n from '../i18n';
 import {LoginAPI} from '../api/Login';
+import {StorageAPI} from '../api/Storage';
 import UnitPlan from './UnitPlan';
 import ReplacementPlan from './ReplacementPlan';
 import LoginDialog from '../components/LoginDialog';
 import AppDrawer from '../components/AppDrawer';
 import './Theme.css';
-import InstallationTutorialDialog from "../components/InstallationTutorialDialog";
+import InstallationTutorialDialog from '../components/InstallationTutorialDialog';
 
 export default class Main extends Component {
 
@@ -38,10 +38,10 @@ export default class Main extends Component {
 
 	componentWillMount() {
 		this.setState({
-			grade: cookie.load('grade'),
-			username: cookie.load('username'),
-			password: cookie.load('password'),
-			showLogin: cookie.load('username') === undefined || cookie.load('password') === undefined || cookie.load('username') === '' || cookie.load('password') === ''
+			grade: StorageAPI.get('grade'),
+			username: StorageAPI.get('username'),
+			password: StorageAPI.get('password'),
+			showLogin: StorageAPI.get('username') === undefined || StorageAPI.get('password') === undefined || StorageAPI.get('username') === '' || StorageAPI.get('password') === ''
 		});
 	}
 
@@ -109,9 +109,9 @@ export default class Main extends Component {
 			}
 		});
 		this.setState({toolbarHeight: ReactDOM.findDOMNode(this.refs.toolbar).clientHeight, loginInvalid: false});
-		if (cookie.load('showTutorial') === undefined || cookie.load('showTutorial') === '') {
+		if (StorageAPI.get('showTutorial') === undefined || StorageAPI.get('showTutorial') === '') {
 			this.setState({showTutorial: true});
-			cookie.save('showTutorial', false, {expires: new Date(Infinity), maxAge: Infinity})
+			StorageAPI.set('showTutorial', false, {expires: new Date(Infinity), maxAge: Infinity})
 		}
 		if (!this.state.showLogin) {
 			LoginAPI.login(this.state.username, this.state.password).then(correct => {

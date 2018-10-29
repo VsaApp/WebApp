@@ -1,6 +1,6 @@
 import {firebase} from '@firebase/app';
 import '@firebase/messaging';
-import cookie from 'react-cookies';
+import {StorageAPI} from './Storage';
 
 const config = {
 	apiKey: 'AIzaSyDlTjIPVZMhm7ChrGpCA2xNxe-r93bF0WY',
@@ -17,12 +17,12 @@ const getToken = () => {
 	return new Promise((resolve, reject) => {
 		const messaging = firebase.messaging();
 
-		if (cookie.load('token') === undefined || cookie.load('token') === '') {
+		if (StorageAPI.get('token') === undefined || StorageAPI.get('token') === '') {
 			messaging.requestPermission().then(() => {
 				return messaging.getToken();
 			}).then(token => {
 				console.log(token);
-				cookie.save('token', token, {expires: new Date(Infinity), maxAge: Infinity});
+				StorageAPI.set('token', token, {expires: new Date(Infinity), maxAge: Infinity});
 				resolve(token);
 			}).catch(reject);
 
@@ -31,9 +31,9 @@ const getToken = () => {
 				return messaging.getToken();
 			}).then(token => {
 				console.log(token);
-				if (token !== cookie.load('token')) {
-					cookie.save('token', token, {expires: new Date(Infinity), maxAge: Infinity});
-					subscribe(cookie.load('grade') + 'test');
+				if (token !== StorageAPI.get('token')) {
+					StorageAPI.set('token', token, {expires: new Date(Infinity), maxAge: Infinity});
+					subscribe(StorageAPI.get('grade') + 'test');
 				}
 				resolve(token);
 			}).catch(reject);

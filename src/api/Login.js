@@ -1,5 +1,5 @@
 import {Sha256API} from './Sha256';
-import cookie from 'react-cookies';
+import {StorageAPI} from './Storage';
 
 export const LoginAPI = {
 	login: (username, password, i) => {
@@ -24,10 +24,9 @@ export const LoginAPI = {
 		});
 	},
 	logout: () => {
-		const keys = ['username', 'password', 'token', 'grade'];
-		keys.forEach(key => {
-			cookie.remove(key);
+		StorageAPI.keys().forEach(key => {
+			StorageAPI.remove(key);
 		});
-		location.reload();
+		window.location.reload();
 	}
 };
