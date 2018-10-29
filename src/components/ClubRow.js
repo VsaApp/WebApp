@@ -23,13 +23,13 @@ export default class ClubRow extends Component {
 								display: 'grid',
 								gridTemplateColumns: '50% 50%'
 							}}>{row.map((text, j) => {
-							const textAlign = j === 0 ? 'left' : 'right';
 							return (
 								<p
 									key={j}
 									style={{
 										margin: 0,
-										textAlign,
+										color: (i === 1 && j === 0 ? 'gray' : 'black'),
+										textAlign: (j === 0 ? 'left' : 'right'),
 										fontWeight: (i === 0 && j === 0 ? 'bold' : 'none')
 									}}>{text}</p>
 							);
