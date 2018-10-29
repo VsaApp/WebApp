@@ -189,15 +189,9 @@ export default class UnitPlan extends Component {
 							}
 							console.log(this.state.chooserData, this.state.chooserSelect);
 							if (!('block' in this.state.chooserData)) {
-								StorageAPI.set('choice:' + StorageAPI.get('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect, {
-									expires: new Date(Infinity),
-									maxAge: Infinity
-								});
+								StorageAPI.set('choice:' + StorageAPI.get('grade') + ':' + this.state.chooserDay + ':' + this.state.chooserLesson, this.state.chooserSelect);
 							} else {
-								StorageAPI.set('choice:' + this.state.chooserData.block, this.state.chooserSelect, {
-									expires: new Date(Infinity),
-									maxAge: Infinity
-								});
+								StorageAPI.set('choice:' + this.state.chooserData.block, this.state.chooserSelect);
 							}
 							this.setState({
 								chooserList: [

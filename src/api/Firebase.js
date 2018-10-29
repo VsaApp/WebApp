@@ -17,12 +17,12 @@ const getToken = () => {
 	return new Promise((resolve, reject) => {
 		const messaging = firebase.messaging();
 
-		if (StorageAPI.get('token') === undefined || StorageAPI.get('token') === '') {
+		if (StorageAPI.get('token') === undefined) {
 			messaging.requestPermission().then(() => {
 				return messaging.getToken();
 			}).then(token => {
 				console.log(token);
-				StorageAPI.set('token', token, {expires: new Date(Infinity), maxAge: Infinity});
+				StorageAPI.set('token', token);
 				resolve(token);
 			}).catch(reject);
 
@@ -32,7 +32,7 @@ const getToken = () => {
 			}).then(token => {
 				console.log(token);
 				if (token !== StorageAPI.get('token')) {
-					StorageAPI.set('token', token, {expires: new Date(Infinity), maxAge: Infinity});
+					StorageAPI.set('token', token);
 					subscribe(StorageAPI.get('grade') + 'test');
 				}
 				resolve(token);

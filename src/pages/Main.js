@@ -41,7 +41,7 @@ export default class Main extends Component {
 			grade: StorageAPI.get('grade'),
 			username: StorageAPI.get('username'),
 			password: StorageAPI.get('password'),
-			showLogin: StorageAPI.get('username') === undefined || StorageAPI.get('password') === undefined || StorageAPI.get('username') === '' || StorageAPI.get('password') === ''
+			showLogin: StorageAPI.get('username') === undefined || StorageAPI.get('password') === undefined
 		});
 	}
 
@@ -109,9 +109,9 @@ export default class Main extends Component {
 			}
 		});
 		this.setState({toolbarHeight: ReactDOM.findDOMNode(this.refs.toolbar).clientHeight, loginInvalid: false});
-		if (StorageAPI.get('showTutorial') === undefined || StorageAPI.get('showTutorial') === '') {
+		if (StorageAPI.get('showTutorial') === undefined) {
 			this.setState({showTutorial: true});
-			StorageAPI.set('showTutorial', false, {expires: new Date(Infinity), maxAge: Infinity})
+			StorageAPI.set('showTutorial', false)
 		}
 		if (!this.state.showLogin) {
 			LoginAPI.login(this.state.username, this.state.password).then(correct => {

@@ -9,6 +9,7 @@ import UnitPlan from '../pages/UnitPlan';
 import ReplacementPlan from '../pages/ReplacementPlan';
 import Settings from '../pages/Settings';
 import Clubs from '../pages/Clubs';
+import Cafetoria from "../pages/Cafetoria";
 
 export default class AppDrawer extends Component {
 
@@ -87,6 +88,19 @@ export default class AppDrawer extends Component {
 							onClick={() => {
 								this.setState({tab: 3});
 								this.props.onClick({
+									page: <Cafetoria/>,
+									drawerOpen: false,
+									title: i18n.t('drawer_cafetoria')
+								});
+								this.selectTab();
+							}}>
+							{i18n.t('drawer_cafetoria')}
+						</ListItem>
+						<ListItem
+							ref='4'
+							onClick={() => {
+								this.setState({tab: 4});
+								this.props.onClick({
 									page: <Clubs/>,
 									drawerOpen: false,
 									title: i18n.t('drawer_clubs')
@@ -96,9 +110,9 @@ export default class AppDrawer extends Component {
 							{i18n.t('drawer_clubs')}
 						</ListItem>
 						<ListItem
-							ref='4'
+							ref='5'
 							onClick={() => {
-								this.setState({tab: 4});
+								this.setState({tab: 5});
 								this.props.onClick({
 									page: <Settings/>,
 									drawerOpen: false,

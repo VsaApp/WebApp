@@ -63,15 +63,9 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginGrade).then(() => {
-											StorageAPI.set('username', this.state.loginUsername, {
-												expires: new Date(Infinity),
-												maxAge: Infinity
-											});
-											StorageAPI.set('password', this.state.loginPassword, {
-												expires: new Date(Infinity),
-												maxAge: Infinity
-											});
-											StorageAPI.set('grade', this.state.loginGrade, {expires: new Date(Infinity), maxAge: Infinity});
+											StorageAPI.set('username', this.state.loginUsername);
+											StorageAPI.set('password', this.state.loginPassword);
+											StorageAPI.set('grade', this.state.loginGrade);
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);
@@ -91,19 +85,10 @@ export default class LoginDialog extends Component {
 											alert(i18n.t('notification_permission_not_granted'));
 										}
 										FirebaseAPI.subscribe(this.state.loginUsername).then(() => {
-											StorageAPI.set('username', this.state.loginUsername, {
-												expires: new Date(Infinity),
-												maxAge: Infinity
-											});
-											StorageAPI.set('password', this.state.loginPassword, {
-												expires: new Date(Infinity),
-												maxAge: Infinity
-											});
-											StorageAPI.set('grade', this.state.loginUsername, {
-												expires: new Date(Infinity),
-												maxAge: Infinity
-											});
-											StorageAPI.set('teacher', true, {expires: new Date(Infinity), maxAge: Infinity});
+											StorageAPI.set('username', this.state.loginUsername);
+											StorageAPI.set('password', this.state.loginPassword);
+											StorageAPI.set('grade', this.state.loginUsername);
+											StorageAPI.set('teacher', true);
 											window.location.reload();
 										}).catch(error => {
 											console.error(error);

@@ -12,6 +12,7 @@ export default {
 	drawer_unitplan: 'Stundenplan',
 	drawer_replacementplan: 'Vertretungsplan',
 	drawer_teachers: 'Lehrer*Innen',
+	drawer_cafetoria: 'Cafetoria',
 	drawer_clubs: 'AGs',
 	drawer_settings: 'Einstellungen',
 	settings_logout_title: 'Abmelden',
@@ -40,5 +41,9 @@ export default {
 			<ul>
 				<li>Safari: Diese Webseite teilen und dann zum Startbildschirm hinzufügen</li>
 			</ul>
-		</div>
+		</div>,
+	dialog_cafetoria_title: 'Cafetoria anmelden',
+	dialog_cafetoria_id: 'ID',
+	dialog_cafetoria_pin: 'PIN',
+	dialog_cafetoria_submit: 'Anmelden'
 }
