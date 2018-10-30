@@ -115,7 +115,7 @@ export default class Cafetoria extends Component {
 						}
 					}}>
 					<DialogTitle>{i18n.t('dialog_cafetoria_title')}</DialogTitle>
-					<DialogContent style={{overflowY: 'hidden'}}>
+					<DialogContent style={{overflow: 'hidden'}}>
 						{i18n.t('dialog_cafetoria_text')}
 						< TextField
 							style={{width: '100%'}}

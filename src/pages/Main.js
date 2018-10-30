@@ -171,7 +171,7 @@ export default class Main extends Component {
 						marginTop: this.state.toolbarHeight - 5,
 						padding: 10,
 						paddingBottom: 0,
-						overflowY: 'hidden'
+						overflow: 'hidden'
 					}}>
 					{this.state.page}
 				</div>

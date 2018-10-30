@@ -103,7 +103,7 @@ export default class LoginDialog extends Component {
 						}
 					}}>
 					<DialogTitle>{i18n.t('dialog_login_title')}</DialogTitle>
-					<DialogContent style={{overflowY: 'hidden'}}>
+					<DialogContent style={{overflow: 'hidden'}}>
 						<Checkbox
 							checked={this.state.teacherChecked}
 							onChange={evt => this.setState({teacherChecked: evt.target.checked})}>
