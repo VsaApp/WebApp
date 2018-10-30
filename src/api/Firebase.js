@@ -33,14 +33,11 @@ const getToken = () => {
 				console.log(token);
 				if (token !== StorageAPI.get('token')) {
 					StorageAPI.set('token', token);
-					subscribe(StorageAPI.get('grade') + 'test');
+					subscribe(StorageAPI.get('grade'));
 				}
 				resolve(token);
 			}).catch(reject);
 		}
-		messaging.onMessage(payload => {
-			console.log('Got payload', payload);
-		});
 	});
 };
 
