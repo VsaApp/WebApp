@@ -35,7 +35,9 @@ export default {
 		<div><p>Android:</p>
 			<ul>
 				<li>Firefox: Oben auf das Haus mit dem Plus drücken</li>
-				<li>Chrome: Entweder unten im Pop-Up akzeptieren oder im Menü oben rechts zum Startbildschirm hinzufügen</li>
+				<li>Chrome/Andere: Entweder unten im Pop-Up akzeptieren oder im Menü oben rechts zum Startbildschirm
+					hinzufügen
+				</li>
 			</ul>
 			<p>iOS:</p>
 			<ul>
@@ -43,6 +45,11 @@ export default {
 			</ul>
 		</div>,
 	dialog_cafetoria_title: 'Cafetoria anmelden',
+	dialog_cafetoria_text:
+		<div>
+			<p>Wenn du deine aktuellen Kontostand sehen möchtest, gib hier deine Daten an.</p>
+			<b>Wenn du dises nicht angibst kannst du trotzdem die Menüs sehen.</b>
+		</div>,
 	dialog_cafetoria_id: 'ID',
 	dialog_cafetoria_pin: 'PIN',
 	dialog_cafetoria_submit: 'Anmelden'

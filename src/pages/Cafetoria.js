@@ -28,8 +28,8 @@ export default class Cafetoria extends Component {
 
 	componentWillMount() {
 		this.setState({
-			id: StorageAPI.get('cafetoria_id'),
-			pin: StorageAPI.get('cafetoria_pin'),
+			id: StorageAPI.get('cafetoria_id') || '',
+			pin: StorageAPI.get('cafetoria_pin') || '',
 			showLogin: StorageAPI.get('cafetoria_id') === undefined || StorageAPI.get('cafetoria_pin') === undefined
 		});
 		setTimeout(() => {
@@ -85,7 +85,10 @@ export default class Cafetoria extends Component {
 									})
 								}}/>
 							<p style={{textAlign: 'center', margin: 0}}>{day.date}</p>
-							<p style={{textAlign: 'center', margin: 0, marginTop: 5}}>{this.state.menues.saldo.toFixed(2) + ' €'}</p>
+							{this.state.menues.saldo !== null ?
+								<p
+									style={{textAlign: 'center', margin: 0, marginTop: 5}}>{this.state.menues.saldo.toFixed(2) + ' €'}</p>
+								: ''}
 							{day.menues.concat([day.extra, day.snack]).filter(menu => menu.food !== '').map((menu, j, arr) => {
 								return (
 									<CafetoriaRow
@@ -113,7 +116,8 @@ export default class Cafetoria extends Component {
 					}}>
 					<DialogTitle>{i18n.t('dialog_cafetoria_title')}</DialogTitle>
 					<DialogContent style={{overflowY: 'hidden'}}>
-						<TextField
+						{i18n.t('dialog_cafetoria_text')}
+						< TextField
 							style={{width: '100%'}}
 							required
 							invalid={this.state.loginInvalid}
