@@ -22,7 +22,7 @@ export default class Routes {
 			dir: 'ltr',
 			lang: 'de-DE',
 			display: 'standalone',
-			orientation: 'portrait',
+			orientation: 'any',
 			theme_color: '#5bc638',
 			start_url: '/',
 			icons: [
