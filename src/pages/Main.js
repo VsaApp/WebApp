@@ -77,6 +77,10 @@ export default class Main extends Component {
 		window.addEventListener('popstate', function () {
 			window.history.pushState({}, '')
 		});
+
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/cache-sw.js');
+		});
 		let hash = decodeURIComponent(location.href.split('#/')[1]);
 		try {
 			this.processNotification(JSON.parse(hash));
